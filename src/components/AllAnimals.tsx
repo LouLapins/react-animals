@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { Animal } from "../models/Animal"
-import { AnimalDetails } from "../models/AnimalDetails"
 
 
 export const AllAnimals = () => {
@@ -11,9 +11,10 @@ export const AllAnimals = () => {
 
     useEffect(() => {
         
-        axios.get<AnimalDetails[]>('https://animals.azurewebsites.net/api/animals')
+        axios.get<Animal[]>('https://animals.azurewebsites.net/api/animals')
         .then(response => {
             setAnimals(response.data);
+            localStorage.setItem('animalsLS', JSON.stringify(response.data));
         })
     }, [])
 
@@ -22,6 +23,7 @@ export const AllAnimals = () => {
             <li key={a.id}>
                 <h3>{a.name}</h3>
                 <img src={a.imageUrl} alt={a.name} />
+                <Link to={"/animal/" + a.id}>Visa mer</Link>
             </li>
         );
     });
