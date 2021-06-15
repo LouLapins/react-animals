@@ -29,8 +29,9 @@ export const AllAnimals = () => {
     let liTags = animals.map((a) => {
         return (
             <li key={a.id}>
-                <h3>{a.name}</h3>
                 <img src={a.imageUrl} alt={a.name} />
+                <h3>{a.name}</h3>
+                <p>{a.shortDescription}</p>
                 <Link to={"/animal/" + a.id}>Visa mer</Link>
             </li>
         );
