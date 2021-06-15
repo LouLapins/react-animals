@@ -4,7 +4,7 @@ import { useParams } from "react-router"
 import { AnimalDetails } from "../models/AnimalDetails";
 
 interface IParams {
-    id: string;
+    id: string; 
 }
 
 export const Animal = () => {
@@ -34,7 +34,15 @@ export const Animal = () => {
         });
     }, [id]);
 
-    
 
-    return <div>You clicked on animal {animal.name}</div>
+    return <div>
+        <img src={animal.imageUrl} alt={animal.name} />
+        <h2>{animal.name}</h2>
+        <h4>{animal.latinName}</h4>
+        <p>{animal.longDescription}</p>
+        <p>Born: {animal.yearOfBirth}</p>
+        <p>Medicine: {animal.medicine}</p>
+        <p>Fed: {animal.isFed.toString()}</p>
+        <p>Last fed: {animal.lastFed.toLocaleString()}</p>
+    </div>
 }

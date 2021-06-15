@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
 import './App.css';
 import { AllAnimals } from './components/AllAnimals';
 import { Animal } from './components/Animal';
@@ -11,7 +10,6 @@ function App() {
 
     <Router>
       <Switch>
-
         <Route exact path="/">
         <AllAnimals></AllAnimals>
         </Route>
@@ -23,7 +21,6 @@ function App() {
         <Route path="*">
           <PageNotFound></PageNotFound>
         </Route>
-
       </Switch>
     </Router>
 
