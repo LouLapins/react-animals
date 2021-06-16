@@ -30,7 +30,7 @@ export const Animal = () => {
         axios.get<AnimalDetails>('https://animals.azurewebsites.net/api/animals/' + id)
         .then((response) => {
             setAnimal(response.data);
-            localStorage.setItem('animal', JSON.stringify(response.data));
+            sessionStorage.setItem('animal', JSON.stringify(response.data));
         });
     }, [id]);
 
@@ -40,9 +40,10 @@ export const Animal = () => {
         <h2>{animal.name}</h2>
         <h4>{animal.latinName}</h4>
         <p>{animal.longDescription}</p>
-        <p>Born: {animal.yearOfBirth}</p>
-        <p>Medicine: {animal.medicine}</p>
-        <p>Fed: {animal.isFed.toString()}</p>
-        <p>Last fed: {animal.lastFed.toLocaleString()}</p>
+        <p>Född år {animal.yearOfBirth}</p>
+        <p>Mediciner: {animal.medicine}</p>
+        <p>Hungrig? {animal.isFed ? 'Nej' : 'Ja'}</p>
+        <p>Matad senast: {animal.lastFed.toLocaleString()}</p>
+        <button disabled={animal.isFed}>Mata djuret</button>
     </div>
 }
