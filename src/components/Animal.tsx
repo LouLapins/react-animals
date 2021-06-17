@@ -24,49 +24,40 @@ export const Animal = () => {
      lastFed: new Date()
     }
 
-    let animalsLS = localStorage.getItem('animalsLS');    
-    // const parsedParamsID: number = parseInt(id); // FRÅGA
     const [animal, setAnimal] = useState(defaultValue);
-    const [animals, setAnimals] = useState(animalsLS); // FRÅGA
-
-
+   
     useEffect(() => {
-
+        let animalsLS = localStorage.getItem('animalsLS'); 
+        let animals = JSON.parse(animalsLS || '[]'); 
         if (!animalsLS) {
             axios.get<AnimalDetails>('https://animals.azurewebsites.net/api/animals/' + id)
         .then((response) => {
             setAnimal(response.data);
         })
         } else {
-            let cachedAnimals = JSON.parse(animalsLS);
-            setAnimals(cachedAnimals);
-            for (let i = 0; i < cachedAnimals.length; i++) {
-                const parsedParamsID: number = parseInt(id);
-                if (cachedAnimals[i].id === parsedParamsID) {
-                    setAnimal(cachedAnimals[i]);
+            for (let i = 0; i < animals.length; i++) {
+                if (animals[i].id === +id) {
+                    setAnimal(animals[i]);
                 }
-                
             }
-        }
-        
-    }, [id, animalsLS]);
+        }       
+    }, [id]);
     
 
     const feedAnimal = () => {
-        const parsedParamsID: number = parseInt(id);
+        let animalsLS = localStorage.getItem('animalsLS'); 
+        let animals = JSON.parse(animalsLS || '[]'); 
         if (animalsLS) {
-            let cachedAnimals = JSON.parse(animalsLS);
-            for (let i = 0; i < cachedAnimals.length; i++) {
-                if (cachedAnimals[i].id === parsedParamsID) {
-                    cachedAnimals[i].isFed = true;
-                    cachedAnimals[i].lastFed = new Date();
-                    localStorage.setItem('animalsLS', JSON.stringify(cachedAnimals));
-                    setAnimal(cachedAnimals[i]);
+            for (let i = 0; i < animals.length; i++) {
+                if (animals[i].id === +id) {
+                    animals[i].isFed = true;
+                    animals[i].lastFed = new Date();
+                    localStorage.setItem('animalsLS', JSON.stringify(animals));
+                    setAnimal(animals[i]);
                 }
             }
         }
     }
-
 
     return <div>
         <img src={animal.imageUrl} alt={animal.name} />
