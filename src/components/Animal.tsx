@@ -24,15 +24,48 @@ export const Animal = () => {
      lastFed: new Date()
     }
 
+    let animalsLS = localStorage.getItem('animalsLS');    
+    // const parsedParamsID: number = parseInt(id); // FRÅGA
     const [animal, setAnimal] = useState(defaultValue);
+    const [animals, setAnimals] = useState(animalsLS); // FRÅGA
+
 
     useEffect(() => {
-        axios.get<AnimalDetails>('https://animals.azurewebsites.net/api/animals/' + id)
+
+        if (!animalsLS) {
+            axios.get<AnimalDetails>('https://animals.azurewebsites.net/api/animals/' + id)
         .then((response) => {
             setAnimal(response.data);
-            sessionStorage.setItem('animal', JSON.stringify(response.data));
-        });
-    }, [id]);
+        })
+        } else {
+            let cachedAnimals = JSON.parse(animalsLS);
+            setAnimals(cachedAnimals);
+            for (let i = 0; i < cachedAnimals.length; i++) {
+                const parsedParamsID: number = parseInt(id);
+                if (cachedAnimals[i].id === parsedParamsID) {
+                    setAnimal(cachedAnimals[i]);
+                }
+                
+            }
+        }
+        
+    }, [id, animalsLS]);
+    
+
+    const feedAnimal = () => {
+        const parsedParamsID: number = parseInt(id);
+        if (animalsLS) {
+            let cachedAnimals = JSON.parse(animalsLS);
+            for (let i = 0; i < cachedAnimals.length; i++) {
+                if (cachedAnimals[i].id === parsedParamsID) {
+                    cachedAnimals[i].isFed = true;
+                    cachedAnimals[i].lastFed = new Date();
+                    localStorage.setItem('animalsLS', JSON.stringify(cachedAnimals));
+                    setAnimal(cachedAnimals[i]);
+                }
+            }
+        }
+    }
 
 
     return <div>
@@ -44,6 +77,6 @@ export const Animal = () => {
         <p>Mediciner: {animal.medicine}</p>
         <p>Hungrig? {animal.isFed ? 'Nej' : 'Ja'}</p>
         <p>Matad senast: {animal.lastFed.toLocaleString()}</p>
-        <button disabled={animal.isFed}>Mata djuret</button>
+        <button onClick={feedAnimal} disabled={animal.isFed}>Mata djuret</button>
     </div>
 }

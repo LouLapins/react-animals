@@ -8,20 +8,21 @@ export const AllAnimals = () => {
 
     let defaultValue: Animal[] = [];
     const [animals, setAnimals] = useState(defaultValue);
+    let animalsLS = localStorage.getItem('animalsLS');
    
     useEffect(() => {
          
-        if (!sessionStorage.getItem('animalsLS')) {
+        if (!animalsLS) {
             axios.get<Animal[]>('https://animals.azurewebsites.net/api/animals')
             .then(response => {
                 setAnimals(response.data);
-                sessionStorage.setItem('animalsLS', JSON.stringify(response.data));
+                localStorage.setItem('animalsLS', JSON.stringify(response.data));
         })
         } else {
-            let cachedAnimals = JSON.parse(sessionStorage.getItem('animalsLS') || '[]');
+            let cachedAnimals = JSON.parse(animalsLS);
             setAnimals(cachedAnimals);
         }      
-    }, [])
+    }, []) // FRÅGA
 
     let liTags = animals.map((a) => {
         return (
