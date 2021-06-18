@@ -21,7 +21,7 @@ export const AllAnimals = () => {
             let cachedAnimals = JSON.parse(localStorage.getItem('animalsLS') || '[]');
             setAnimals(cachedAnimals);
         }      
-    }, []) // FRÅGA
+    }, []) 
 
     let liTags = animals.map((a) => {
         return (
@@ -29,12 +29,13 @@ export const AllAnimals = () => {
                 <img src={a.imageUrl} alt={a.name} />
                 <h3>{a.name}</h3>
                 <p>{a.shortDescription}</p>
-                <Link to={"/animal/" + a.id}>Visa mer</Link>
+                <Link className="show-more-btn" to={"/animal/" + a.id}>Visa mer</Link>
             </li>
         );
     });
 
-    return <div>
+    return <section id="all-animals">
+        <h1>Sebastians Zoo</h1>
         <ul>{liTags}</ul>
-        </div>
+        </section>
 }

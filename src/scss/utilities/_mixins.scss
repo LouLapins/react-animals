@@ -1,0 +1,14 @@
+@mixin flexCenter($direction) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: $direction;
+}
+
+@mixin buttonStyle {
+    border: none;
+    padding: 1rem;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}

@@ -1,0 +1,32 @@
+@import "/src/scss/utilities/mixins.scss";
+@import "/src/scss/utilities/variables.scss";
+#animal {
+    @include flexCenter(column);
+    img {
+        width: 80vw;
+        border-radius: 30px;
+    }
+    h2,
+    h4,
+    p {
+        margin-bottom: 2rem;
+    }
+    .long-description {
+        width: 70vw;
+        text-align: left;
+    }
+    .info-box {
+        width: 400px;
+        height: 400px;
+        background-color: rgb(255, 195, 223);
+        @include flexCenter(column);
+        border-radius: 50%;
+        span {
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        button {
+            @include buttonStyle;
+        }
+    }
+}

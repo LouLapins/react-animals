@@ -1,0 +1,36 @@
+@import "/src/scss/utilities/mixins.scss";
+@import "/src/scss/utilities/variables.scss";
+#all-animals {
+    background-color: rgb(149, 179, 162);
+    h1 {
+        text-transform: uppercase;
+        font-size: 60px;
+        text-align: start;
+        padding: 3rem 0 0 5rem;
+    }
+    ul {
+        flex-wrap: wrap;
+        @include flexCenter(row);
+        li {
+            width: 40vw;
+            border: 1rem solid rgb(190, 238, 212);
+            background-color: white;
+            border-radius: 30px;
+            margin: 1rem;
+            padding: 3rem;
+            img {
+                width: 80%;
+            }
+            h3,
+            p {
+                margin: 1rem;
+            }
+            p {
+                text-align: left;
+            }
+            .show-more-btn {
+                @include buttonStyle;
+            }
+        }
+    }
+}

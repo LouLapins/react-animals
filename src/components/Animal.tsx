@@ -59,15 +59,17 @@ export const Animal = () => {
         }
     }
 
-    return <div>
+    return <section id="animal">
         <img src={animal.imageUrl} alt={animal.name} />
         <h2>{animal.name}</h2>
         <h4>{animal.latinName}</h4>
-        <p>{animal.longDescription}</p>
-        <p>Född år {animal.yearOfBirth}</p>
-        <p>Mediciner: {animal.medicine}</p>
-        <p>Hungrig? {animal.isFed ? 'Nej' : 'Ja'}</p>
-        <p>Matad senast: {animal.lastFed.toLocaleString()}</p>
+        <p className="long-description">{animal.longDescription}</p>
+        <div className="info-box">
+        <span>Född år {animal.yearOfBirth}</span>
+        <span>Mediciner: {animal.medicine}</span>
+        <span>Hungrig? {animal.isFed ? 'Nej' : 'Ja'}</span>
+        <span>Matad senast: {animal.lastFed.toLocaleString()}</span>
         <button onClick={feedAnimal} disabled={animal.isFed}>Mata djuret</button>
-    </div>
+        </div>
+    </section>
 }
