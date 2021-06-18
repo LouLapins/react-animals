@@ -1,18 +1,18 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { Animal } from "../models/Animal"
+import { AnimalDetails } from "../models/AnimalDetails"
 
 
 export const AllAnimals = () => {
 
-    let defaultValue: Animal[] = [];
+    let defaultValue: AnimalDetails[] = [];
     const [animals, setAnimals] = useState(defaultValue);
    
     useEffect(() => {
          
         if (!localStorage.getItem('animalsLS')) {
-            axios.get<Animal[]>('https://animals.azurewebsites.net/api/animals')
+            axios.get<AnimalDetails[]>('https://animals.azurewebsites.net/api/animals')
             .then(response => {
                 setAnimals(response.data);
                 localStorage.setItem('animalsLS', JSON.stringify(response.data));
