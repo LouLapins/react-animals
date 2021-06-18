@@ -37,6 +37,15 @@ export const Animal = () => {
         } else {
             for (let i = 0; i < animals.length; i++) {
                 if (animals[i].id === +id) {
+                    
+                    let millisecsSinceFed = new Date().getTime() - new Date(animals[i].lastFed).getTime();
+                    let hoursSinceFed = Math.floor(millisecsSinceFed / (1000*60*60));
+                    let hungry = hoursSinceFed >= 3;
+
+                    if (hungry) {
+                        animals[i].isFed = false;
+                        localStorage.setItem('animalsLS', JSON.stringify(animals));
+                    }
                     setAnimal(animals[i]);
                 }
             }

@@ -28,6 +28,16 @@
             p {
                 text-align: left;
             }
+            span {
+                padding: 1rem;
+                color: white;
+            }
+            .danger {
+                background-color: rgb(184, 0, 0);
+            }
+            .calm {
+                background-color: rgb(2, 104, 2);
+            }
             .show-more-btn {
                 @include buttonStyle;
             }

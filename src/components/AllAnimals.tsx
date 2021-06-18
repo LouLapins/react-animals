@@ -24,11 +24,17 @@ export const AllAnimals = () => {
     }, []) 
 
     let liTags = animals.map((a) => {
+
+        let millisecsSinceFed = new Date().getTime() - new Date(a.lastFed).getTime();
+        let hoursSinceFed = Math.floor(millisecsSinceFed / (1000*60*60));
+        let hungry = hoursSinceFed >= 4;
+
         return (
             <li key={a.id}>
                 <img src={a.imageUrl} alt={a.name} />
                 <h3>{a.name}</h3>
                 <p>{a.shortDescription}</p>
+                {hungry ? <span className="danger">Behöver matas!</span> : <span className="calm">Är mätt just nu.</span>}
                 <Link className="show-more-btn" to={"/animal/" + a.id}>Visa mer</Link>
             </li>
         );
